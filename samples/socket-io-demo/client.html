@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO demo</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+    <script>
+
+        //创建socket
+        var socket = io('http://localhost:8080');
+
+        // 接收服务端'server message'事件发出的数据
+        socket.on('server message', function (data) {
+
+            //输出服务端响应了数据
+            console.log('receive server message: ' + data);
+        });
+
+        //向服务端的自定义事件'client message'发出数据
+        socket.emit('client message', 'Hi!');
+    </script>
+</body>
+</html>
