@@ -1,7 +1,8 @@
-<h2>{{user.name}}</h2>
-<div><span>id: </span>{{user.id}}</div>
-<div>
-<label>name:
-    <input [(ngModel)]="user.name" placeholder="name">
-</label>
-</div>
+<h2>我的用户</h2>
+<ul class="users">
+    <li *ngFor="let user of users"> 
+    <a routerLink="/detail/{{user.id}}">
+      <span class="badge">{{user.id}}</span> {{user.name}}
+    </a>
+  </li>
+</ul>
