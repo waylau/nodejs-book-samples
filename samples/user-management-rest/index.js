@@ -102,8 +102,8 @@ app.get(URL + '/:id', function (req, res) {
                 // 释放连接
                 connection.release();
 
-                // 转为JSON返回
-                res.json(results).end();
+                // 取第一个，转为JSON返回
+                res.json(results[0]).end();
             });
     });
 
@@ -154,11 +154,11 @@ app.put(URL + '/', (req, res) => {
         }
 
         // 从请求参数中获取用户信息
-        let user_id = req.body.userid;
+        let user_id = req.body.user_id;
         let username = req.body.username;
 
         console.log('User id is: ', user_id);
-
+        console.log('User name is: ', username);
         // 执行查询
         connection.query('UPDATE t_user SET username = ? WHERE user_id = ? ', [username, user_id],
             function (error, results) {
