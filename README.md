@@ -47,6 +47,7 @@
 * [tls-demo/tls-server.js](samples/tls-demo/tls-server.js)：构建TLS服务器
 * [tls-demo/tls-client.js](samples/tls-demo/tls-client.js)：构建TLS客户端
 * [express-demo](samples/express-demo)：Express示例
+* [express-rest](samples/express-rest)：Express REST 示例
 * [socket-io-demo](samples/socket-io-demo)：Socket.IO示例
 * [angular-demo](samples/angular-demo)：Angular应用的例子
 * [mysql-demo](samples/mysql-demo)：操作MySQL的例子
