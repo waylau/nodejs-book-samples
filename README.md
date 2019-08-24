@@ -1,7 +1,7 @@
 # Node.js Samples. （Node.js 案例大全）
 
 * [hello-world](samples/hello-world)：第一个Node.js应用
-* [hello-world](samples/deep-strict-equal/)：deepStrictEqual示例
+* [deep-strict-equal](samples/deep-strict-equal/)：deepStrictEqual示例
 * [buffer-demo/character-encodings.js](samples/buffer-demo/character-encodings.js)：指定字符编码
 * [buffer-demo/buffer-slice.js](samples/buffer-demo/buffer-slice.js)：切分缓冲区
 * [buffer-demo/buffer-concat.js](samples/buffer-demo/buffer-concat.js)：连接缓冲区
