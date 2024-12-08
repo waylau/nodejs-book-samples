@@ -1,4 +1,4 @@
-const { execFile } = require('child_process');
+const { execFile } = require('node:child_process');
 
 execFile('node', ['-v'], (error, stdout, stderr) => {
     if (error) {

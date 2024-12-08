@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 const buf = Buffer.allocUnsafe(2);
 
 buf.writeInt8(2, 0);

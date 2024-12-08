@@ -1,41 +1,46 @@
 const redis = require("redis");
 
 // 创建客户端
-const client = redis.createClient();
+const client = redis.createClient({
+    // 连接配置，提供Redis密码、IP、端口
+    url: 'redis://:password@192.168.1.77:6387'
+  });
 
 // 错误处理
-client.on("error", function (err) {
-    console.log("Error " + err);
-});
+client.on('error', err => console.log('Redis Client Error', err));
 
-// 设值
-client.set("书名", "《Node.js企业级应用开发实战》", redis.print);
+async function main() {
+    await client.connect();
 
-// 同个key不同的字段
-client.hset("柳伟卫的Spring三剑客", "第一剑", "《Spring Boot 企业级应用开发实战》", redis.print);
-client.hset("柳伟卫的Spring三剑客", "第二剑", "《Spring Cloud 微服务架构开发实战》", redis.print);
-client.hset(["柳伟卫的Spring三剑客", "第三剑", "《Spring 5 开发大全》"], redis.print);
+    // 设值
+    await client.set("书名", "《Node.js企业级应用开发实战》");
 
-// 返回所有的字段
-client.hkeys("柳伟卫的Spring三剑客", function (err, replies) {
-    console.log("柳伟卫的Spring三剑客共" + replies.length + "本:");
+    // 获取key所对应的值
+    const bookName = await client.get("书名");
+    console.log(bookName); 
     
+ 
+    // 同个key不同的字段
+    await client.hSet("柳伟卫的Spring三剑客", "第一剑", "《Spring Boot 企业级应用开发实战》" );
+    await client.hSet("柳伟卫的Spring三剑客", "第二剑", "《Spring Cloud 微服务架构开发实战》" );
+    await client.hSet("柳伟卫的Spring三剑客", "第三剑", "《Spring 5 开发大全》");
+    
+    // 返回所有的字段
+    const replies = await client.hKeys("柳伟卫的Spring三剑客");
+    console.log("柳伟卫的Spring三剑客共" + replies.length + "本:");
     // 遍历所有的字段
     replies.forEach(function (reply, i) {
         console.log("    " + i + ": " + reply);
     });
-});
 
-// 获取key所对应的值
-client.get("书名", function (err, reply) {
-    console.log(reply); 
-});
+    // 获取key所对应的值
+    let allBooks = await client.hGetAll("柳伟卫的Spring三剑客");
+    console.log("柳伟卫的Spring三剑客", JSON.stringify(allBooks));
+ 
+    return 'done.';
+}
 
-
-// 获取key所对应的值
-client.hgetall("柳伟卫的Spring三剑客", function (err, reply) {
-    console.log(reply); 
-
-    // 退出
-    client.quit();
-});
+main()
+    .then(console.log)
+    .catch(console.error)
+    .finally(() => client.disconnect());

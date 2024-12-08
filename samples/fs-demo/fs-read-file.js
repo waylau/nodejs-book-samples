@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 
 fs.readFile('data.txt', (err, data) => {
     if (err) {

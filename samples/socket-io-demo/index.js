@@ -1,13 +1,19 @@
+const express = require('express');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
 
-const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/client.html');
+app.get('/', (req, res) => {
+    res.sendFile(join(__dirname, 'client.html'));
 });
 
-io.on('connection', socket => {
+// 监听客户端连接
+io.on('connection', (socket) => {
+    console.log('client connected');
 
     // 监听断开连接状态
     socket.on('disconnect', () => {
@@ -15,16 +21,15 @@ io.on('connection', socket => {
     });
 
     // 与客户端对应的接收指定的消息
-    socket.on('client message', (data) => {
-        console.log('receive client message: ' + data);
+    socket.on('client message', (msg) => {
+        // 输出服务端接收到到的客户端数据
+        console.log('receive client message: ' + msg);
 
-        // io.emit()方法用于向客户端端发送消息
+        // 发送消息
         io.emit('server message', 'Welcome!');
-
     });
-
 });
 
-http.listen(8080, function () {
+server.listen(8080, () => {
     console.log('listening on 8080');
 });

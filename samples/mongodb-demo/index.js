@@ -9,151 +9,60 @@ const dbName = 'nodejsBook';
 // 创建MongoClient客户端
 const client = new MongoClient(url);
 
-// 使用连接方法来连接到服务器
-client.connect(function (err) {
-    if (err) {
-        console.error('error end: ' + err.stack);
-        return;
-    }
 
+async function main() {
+    // 使用连接方法来连接到服务器
+    await client.connect();
     console.log("成功连接到服务器");
-
     const db = client.db(dbName);
 
-    // 插入多个文档
-    insertDocuments(db, function () {
-        client.close();
-    });
-
-
-    // 查找全部文档
-    findDocuments(db, function () {
-        client.close();
-    });
-
-
-    // 根据作者查找文档
-    findDocumentsByAuthorName(db, "柳伟卫", function () {
-        client.close();
-    });
-
-    // 修改单个文档
-    updateDocument(db, function () {
-        client.close();
-    });
-
-    // 修改多个文档
-    updateDocuments(db, function () {
-        client.close();
-    });
-
-    // 删除单个文档
-    removeDocument(db, function () {
-        client.close();
-    });
-
-    // 删除多个文档
-    removeDocuments(db, function () {
-        client.close();
-    });
-
-});
-
-// 插入文档
-const insertDocuments = function (db, callback) {
     // 获取集合
     const book = db.collection('book');
 
-    // 插入文档
-    book.insertMany([
+    // 插入多个文档
+    const insertResult = await book.insertMany([
         { title: "Spring Boot 企业级应用开发实战", price: 98, press: "北京大学出版社", author: { age: 32, name: "柳伟卫" } },
         { title: "Spring Cloud 微服务架构开发实战", price: 79, press: "北京大学出版社", author: { age: 32, name: "柳伟卫" } },
-        { title: "Spring 5 案例大全", price: 119, press: "北京大学出版社", author: { age: 32, name: "柳伟卫" } }], function (err, result) {
-            console.log("已经插入文档，响应结果是：");
-            console.log(result);
-            callback(result);
-        });
-}
+        { title: "Spring 5 案例大全", price: 119, press: "北京大学出版社", author: { age: 32, name: "柳伟卫" } },
+        { title: "分布式系统开发实战", price: 69.8, press: "人民邮电出版社", author: { age: 32, name: "柳伟卫" } },
+        { title: "Java核心编程", price: 89, press: "清华大学出版社", author: { age: 32, name: "柳伟卫" } },
+        { title: "轻量级Java EE企业应用开发实战", price: 139, press: "清华大学出版社", author: { age: 32, name: "柳伟卫" } },
+        { title: "鸿蒙HarmonyOS应用开发入门", price: 89, press: "清华大学出版社", author: { age: 32, name: "柳伟卫" } }]
+    );
+    console.log("已经插入文档，响应结果是：", insertResult);
 
-// 查找全部文档
-const findDocuments = function (db, callback) {
-    // 获取集合
-    const book = db.collection('book');
+    // 查找全部文档
+    const findResult = await book.find({}).toArray();
+    console.log("查询所有文档，结果如下：", findResult);
 
-    // 查询文档
-    book.find({}).toArray(function (err, result) {
-        console.log("查询所有文档，结果如下：");
-        console.log(result)
-        callback(result);
-    });
-}
+    // 根据作者查找文档
+    const filteredDocs = await book.find({ "author.name": '柳伟卫' }).toArray();
+    console.log("根据作者查找文档，结果如下：", filteredDocs);
 
-// 根据作者查找文档
-const findDocumentsByAuthorName = function (db, authorName, callback) {
-    // 获取集合
-    const book = db.collection('book');
-
-    // 查询文档
-    book.find({ "author.name": authorName }).toArray(function (err, result) {
-        console.log("根据作者查找文档，结果如下：");
-        console.log(result)
-        callback(result);
-    });
-}
-
-// 修改单个文档
-const updateDocument = function (db, callback) {
-    // 获取集合
-    const book = db.collection('book');
-
-    // 修改文档
-    book.updateOne(
+    // 修改单个文档
+    const updateResult = await book.updateOne(
         { "author.name": "柳伟卫" },
-        { $set: { "author.name": "Way Lau" } }, function (err, result) {
-            console.log("修改单个文档，结果如下：");
-            console.log(result)
-            callback(result);
-        });
-}
+        { $set: { "author.name": "Way Lau" } });
+    console.log("修改单个文档，结果如下：", updateResult);
 
-
-// 修改单个文档
-const updateDocuments = function (db, callback) {
-    // 获取集合
-    const book = db.collection('book');
-
-    // 修改文档
-    book.updateMany(
+    // 修改多个文档
+    const updateManyResult = await book.updateMany(
         { "author.name": "柳伟卫" },
-        { $set: { "author.name": "Way Lau" } }, function (err, result) {
-            console.log("修改多个文档，结果如下：");
-            console.log(result)
-            callback(result);
-        });
+        { $set: { "author.name": "Way Lau" } });
+    console.log("修改多个文档，结果如下：", updateManyResult);
+
+    // 删除单个文档
+    const deleteResult = await book.deleteOne({ "author.name": "Way Lau" });
+    console.log("删除单个文档，结果如下：", deleteResult);
+
+    // 删除多个文档
+    const deleteManyResult = await book.deleteMany({ "author.name": "Way Lau" });
+    console.log("删除多个文档，结果如下：", deleteManyResult);
+
+    return 'done.';
 }
 
-// 删除单个文档
-const removeDocument = function (db, callback) {
-    // 获取集合
-    const book = db.collection('book');
-
-    // 删除文档
-    book.deleteOne({ "author.name": "Way Lau" }, function (err, result) {
-        console.log("删除单个文档，结果如下：");
-        console.log(result)
-        callback(result);
-    });
-}
-
-// 删除多个文档
-const removeDocuments = function (db, callback) {
-    // 获取集合
-    const book = db.collection('book');
-
-    // 删除文档
-    book.deleteMany({ "author.name": "Way Lau" }, function (err, result) {
-        console.log("删除多个文档，结果如下：");
-        console.log(result)
-        callback(result);
-    });
-}
+main()
+    .then(console.log)
+    .catch(console.error)
+    .finally(() => client.close());

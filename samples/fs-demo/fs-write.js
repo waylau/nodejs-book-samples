@@ -1,5 +1,5 @@
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 // 打开文件用于写入。如果文件不存在则创建文件
 fs.open('write-data.txt', 'w', (err, fd) => {
@@ -7,8 +7,7 @@ fs.open('write-data.txt', 'w', (err, fd) => {
         throw err;
     }
 
-
-    let buffer = Buffer.from("《Node.js企业级应用开发实战》");
+    let buffer = Buffer.from("《Node.js企业级应用开发实战》《循序渐进Node.js企业级应用实战》");
 
     // 写入文件
     fs.write(fd, buffer, 0, buffer.length, 0, (err, bytesWritten, buffer) => {

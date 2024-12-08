@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 // 创建三个Buffer实例
 const buf1 = Buffer.alloc(1);
 const buf2 = Buffer.alloc(4);

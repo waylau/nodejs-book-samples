@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 
 console.log("查看当前目录下所有的文件");
 

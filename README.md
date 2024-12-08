@@ -1,6 +1,8 @@
-# Node.js Samples. （Node.js 案例大全）《Node.js企业级应用开发实战》源码
+# Node.js Samples. （Node.js 案例大全）《Node.js企业级应用开发实战》《循序渐进Node.js企业级开发实践》源码
 
 * [hello-world](samples/hello-world)：第一个Node.js应用
+* [hello-world-typescript](samples/hello-world-typescript)：创建TypeScript版本的Node.js应用
+* [module-system](samples/module-system)：模块化系统
 * [deep-strict-equal](samples/deep-strict-equal/)：deepStrictEqual示例
 * [buffer-demo/character-encodings.js](samples/buffer-demo/character-encodings.js)：指定字符编码
 * [buffer-demo/buffer-slice.js](samples/buffer-demo/buffer-slice.js)：切分缓冲区
@@ -50,47 +52,37 @@
 * [express-rest](samples/express-rest)：Express REST 示例
 * [socket-io-demo](samples/socket-io-demo)：Socket.IO示例
 * [angular-demo](samples/angular-demo)：Angular应用的例子
+* [vue-demo](samples/vue-demo)：Vue.js应用的例子
 * [mysql-demo](samples/mysql-demo)：操作MySQL的例子
 * [mongodb-demo](samples/mongodb-demo)：操作MongoDB的例子
 * [redis-demo](samples/redis-demo)：操作Redis的例子
 * [user-management](samples/user-management)：内存版的“用户管理”客户端
 * [user-management-rest](samples/user-management-rest)：“用户管理”服务端
 * [user-management-ui](samples/user-management-ui)：与服务端对应的“用户管理”客户端
+* [websocket-chat](samples/uwebsocket-chat)：基于WebSocket即时聊天应用
 
 
 
-## 配套书籍《Node.js企业级应用开发实战》
+## 配套书籍
 
-与该源码配套的书籍《Node.js企业级应用开发实战》已经出版，内容详见全书[目录](SUMMARY.md)。
+如果你喜欢本开源书，也欢迎支持下该书的正式出版物，实体店及各大网店有售。
 
-![](images/nodejs.jpg)
+* [《Node.js企业级应用开发实战》](https://github.com/waylau/nodejs-book-samples)（北京大学出版社）
+  * [京东](https://search.jd.com/Search?keyword=%E6%9F%B3%E4%BC%9F%E5%8D%AB%20Node.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98&enc=utf-8&wq=%E6%9F%B3%E4%BC%9F%E5%8D%AB%20Node.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98&pvid=cef388426fa443baac6fb59a1a133421)
+  * [当当](http://search.dangdang.com/?key=%C1%F8%CE%B0%CE%C0%20Node.js%C6%F3%D2%B5%BC%B6%D3%A6%D3%C3%BF%AA%B7%A2%CA%B5%D5%BD&act=input)
+* [《循序渐进Node.js企业级开发实践》](https://waylau.com/about-progressive-nodejs-enterprise-level-application-practice-book/)（清华大学出版社）
+  * [京东](https://re.jd.com/search?keyword=%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9BNode.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5&enc=utf-8)
+  * [当当](https://search.dangdang.com/?key=%D1%AD%D0%F2%BD%A5%BD%F8Node.js%C6%F3%D2%B5%BC%B6%BF%AA%B7%A2%CA%B5%BC%F9&act=input)
 
-
-本书如有勘误，会在<https://github.com/waylau/nodejs-book-samples/issues>上进行发布。由于笔者能力有限，时间仓促，难免错漏，欢迎读者批评指正。
-
-您也可以上[豆瓣](https://book.douban.com/subject/35148345/)给老卫打Call。
-
-
-## 如何获取本书
-
-实体店及各大网店有售。据我所知有如下网站供应：
-
-* [京东](https://search.jd.com/Search?keyword=%E6%9F%B3%E4%BC%9F%E5%8D%AB%20Node.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98&enc=utf-8&wq=%E6%9F%B3%E4%BC%9F%E5%8D%AB%20Node.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98&pvid=cef388426fa443baac6fb59a1a133421)
-* [1号店](https://search.yhd.com/c0-0/k%25E6%259F%25B3%25E4%25BC%259F%25E5%258D%25AB%2520Node.js%25E4%25BC%2581%25E4%25B8%259A%25E7%25BA%25A7%25E5%25BA%2594%25E7%2594%25A8%25E5%25BC%2580%25E5%258F%2591%25E5%25AE%259E%25E6%2588%2598/)
-* [淘宝](https://s.taobao.com/search?q=%E6%9F%B3%E4%BC%9F%E5%8D%AB+Node.js%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20200729&ie=utf8)
-* [当当](http://search.dangdang.com/?key=%C1%F8%CE%B0%CE%C0%20Node.js%C6%F3%D2%B5%BC%B6%D3%A6%D3%C3%BF%AA%B7%A2%CA%B5%D5%BD&act=input)
-
-
-想低于市价得到本书？来[二手书集市](https://github.com/waylau/second-hand-books)试试看。
-
-
-也可以直接关注我博客（<https://waylau.com/>）或者我的开源书（<https://waylau.com/books/>）了解更多免费咨询。
 
 
 
 
 
 ## 联系作者:
+
+
+本书如有勘误，会在<https://github.com/waylau/nodejs-book-samples/issues>上进行发布。由于笔者能力有限，时间仓促，难免错漏，欢迎读者批评指正。
 
 您也可以直接联系我：
 

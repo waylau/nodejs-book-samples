@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 const buf1 = Buffer.allocUnsafe(26);
 
 for (let i = 0; i < 26; i++) {

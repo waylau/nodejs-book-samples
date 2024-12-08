@@ -1,4 +1,4 @@
-const { Duplex } = require('stream');
+const { Duplex } = require('node:stream');
 const kSource = Symbol('source');
 
 class MyDuplex extends Duplex {

@@ -1,5 +1,5 @@
 // 使用严格模式
-const assert = require('assert').strict;
+const assert = require('node:assert').strict;
 
 
 // 1 !== '1'.

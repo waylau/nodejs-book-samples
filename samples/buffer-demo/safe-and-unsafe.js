@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 // 创建一个长度为10的零填充缓冲区
 const safeBuf = Buffer.alloc(10, 'waylau');
 

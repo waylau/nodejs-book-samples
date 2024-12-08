@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 const buf1 = Buffer.from('1234');
 const buf2 = Buffer.from('0123');
 const arr = [buf1, buf2];

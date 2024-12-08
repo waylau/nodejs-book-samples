@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 // 以UTF-8编码初始化缓冲区数据
 const buf = Buffer.from('Hello World!你好，世界！', 'utf8');
 

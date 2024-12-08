@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>基于WebSocket即时聊天应用</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .user-panel {
+            width: 240px;
+        }
+
+        .chat-panel {
+            width: 600px;
+            border: 1px solid #eee;
+            position: relative;
+        }
+
+        .select {
+            display: flex;
+            display: -webkit-flex;
+            justify-content: space-between;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 300px;
+        }
+
+        .user-list-wrap {
+            width: 100%;
+        }
+
+        .user-item {
+            width: 100%;
+            position: relative;
+        }
+
+        .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            font-size: 12px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color: red;
+            color: #fff;
+        }
+
+        .wrap-box {
+            height: 100%;
+        }
+
+        .wrap-box .name-info {
+            min-height: 30px;
+            font-size: 18px;
+            padding-left: 15px;
+        }
+
+        .message-box {
+            background-color: rgb(245, 245, 245);
+        }
+
+        .box {
+            width: 600px;
+            height: 260px;
+            border: 1px solid #eee;
+            overflow-y: scroll;
+            text-align: center;
+        }
+
+        .default-bg {
+            background-color: #eee;
+            font-size: 14px;
+            text-align: center;
+            height: 350px;
+            line-height: 350px;
+            color: #908d8d;
+        }
+
+        .inp-box {
+            width: 600px;
+            height: 50px;
+            outline: none;
+        }
+
+        .btn {
+            float: right;
+        }
+
+        .msg-box {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .msg {
+            background-color: #fff;
+            padding: 5px;
+            max-width: 220px;
+            text-align: left;
+        }
+
+        .msg-box.right .msg {
+            margin-right: 10px;
+        }
+
+        .msg-box.left .msg {
+            margin-left: 10px;
+        }
+
+        .right {
+            justify-content: flex-end;
+        }
+
+        .tab {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .tab-box {
+            position: relative;
+        }
+
+        .tab-item {
+            width: 80px;
+            padding-left: 20px;
+            position: relative;
+            cursor: default;
+        }
+
+        .emoji-icon {
+            width: 25px;
+            height: 25px;
+        }
+
+        .emoji {
+            display: none;
+            position: absolute;
+            width: 600px;
+            bottom: 100px;
+            background-color: #fff;
+            padding: 15px;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .mask {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .system {
+            font-size: 12px;
+            transform: scale(0.9);
+            display: inline-block;
+            color: #fff;
+            background-color: rgb(218, 218, 218);
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+            padding: 0 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!--用户信息区-->
+        <div class="user-panel">
+            <!--用户登录-->
+            <div id="login-wrap">
+                <input class="user-name contenteditable" placeholder="请输入用户名">
+                <div class="user-portrait">
+                    <span class="tips">请选择一张图片作为头像</span>
+                    <img class="my-por" style="width: 60px;height: 60px;">
+                </div>
+                <div class="select" id="portrait">
+                </div>
+                <button class="chat-btn">开始聊天</button>
+            </div>
+            <!--好友列表-->
+            <div class="user-list-wrap">
+                <div class="my-info"></div>
+
+                <div class="friend-tab-box tab-box">
+                    <div class="friend-tab tab-item" style="color: #308e56;">我的好友</div>
+                    <div class="circle me-friend-tab" style="display: none;">0</div>
+                </div>
+
+                <div class="friends-info info-wrapper">暂无好友</div>
+
+            </div>
+        </div>
+        <!--聊天区-->
+        <div class="chat-panel hidden">
+            <div class="message-wrap">
+                <div class="default-bg message-default">
+                    <span>点击好友开始聊天吧！</span>
+                </div>
+                <div class="message-wrapper wrap-box hidden">
+                    <div class="friend name-info"></div>
+                    <div class="message-box box"></div>
+                    <div class="input-box">
+                        <div class="send-img-box">
+                            <img class="emoji-icon" src="static/emoji.png" onclick="showEmojiBox()">
+                        </div>
+                        <div class="inp inp-box" contenteditable="true" placeholder="在此输入消息..."></div>
+                        <div class="btn">
+                            <span>按下Enter发送消息</span>
+                            <button class="send-message">发 送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emoji"></div>
+
+            <div class="mask" onclick="hiddenBox()"></div>
+        </div>
+    </div>
+</body>
+<script src="./script/tool.js"></script>
+<script src="./main.js"></script>
+
+</html>

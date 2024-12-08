@@ -1,4 +1,4 @@
-const dgram = require('dgram');
+const dgram = require('node:dgram');
 const message = Buffer.from('i love u');
 const client = dgram.createSocket('udp4');
 

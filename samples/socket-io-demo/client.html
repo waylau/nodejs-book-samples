@@ -7,12 +7,11 @@
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
 
     <script>
-
-        //创建socket
-        var socket = io('http://localhost:8080');
+        // 创建socket
+        var socket = io();
 
         // 接收服务端'server message'事件发出的数据
         socket.on('server message', function (data) {
@@ -25,4 +24,5 @@
         socket.emit('client message', 'Hi!');
     </script>
 </body>
+
 </html>

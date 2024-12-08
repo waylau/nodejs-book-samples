@@ -1,4 +1,4 @@
-const dgram = require('dgram');
+const dgram = require('node:dgram');
 const server = dgram.createSocket('udp4');
 
 server.on('error', (err) => {

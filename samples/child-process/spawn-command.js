@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { spawn } = require('node:child_process');
 const childProcess = spawn('node', ['-v']);
 
 childProcess.stdout.on('data', (data) => {

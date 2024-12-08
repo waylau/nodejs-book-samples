@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 
 fs.open('data.txt', 'r', (err, fd) => {
     if (err) {

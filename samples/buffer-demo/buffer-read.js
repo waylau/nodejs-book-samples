@@ -1,3 +1,6 @@
+// 引用Buffer模块
+const { Buffer } = require('node:buffer');
+
 const buf = Buffer.from([-1, 5]);
 
 console.log(buf.readInt8(0));

@@ -1,4 +1,4 @@
-const tls = require('tls');
+const tls = require('node:tls');
 const fs = require('fs');
 
 const options = {

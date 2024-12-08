@@ -1,5 +1,5 @@
 // 使用遗留模式
-const assert = require('assert');
+const assert = require('node:assert');
 
 // 生成AssertionError对象
 const { message } = new assert.AssertionError({
